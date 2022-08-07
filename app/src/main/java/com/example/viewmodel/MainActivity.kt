@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
@@ -19,13 +20,16 @@ class MainActivity : AppCompatActivity() {
         val textView = findViewById<TextView>(R.id.tvCount)
         val button = findViewById<Button>(R.id.btnCount)
 
-        textView.text = viewModel.count.toString()
+        //textView.text = viewModel.count.toString()
+        viewModel.count.observe(this, Observer {
+            textView.text = it.toString()
+        })
 
         button.setOnClickListener {
 //            ++count
 //            textView.text = count.toString()
             viewModel.updateCount()
-            textView.text = viewModel.count.toString()
+            //textView.text = viewModel.count.toString()
         }
 
     }
